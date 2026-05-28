@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DEMKAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="inn" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="is_salesman" Type="Boolean" />
+    <Property Name="is_buyer" Type="Boolean" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__customer__3C69FB99" FromRole="Customers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Materials">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="material_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="unit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Recipes" Relationship="Self.FK__Recipes__materia__403A8C7D" FromRole="Materials" ToRole="Recipes" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="order_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="unit_price" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__OrderDeta__order__4316F928" FromRole="OrderDetails" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__OrderDeta__produ__440B1D61" FromRole="OrderDetails" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="customer_id" Type="Int32" Nullable="false" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="total_amount" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK__Orders__customer__3C69FB99" FromRole="Orders" ToRole="Customers" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__order__4316F928" FromRole="Orders" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="product_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="unit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__produ__440B1D61" FromRole="Products" ToRole="OrderDetails" />
+    <NavigationProperty Name="Recipes" Relationship="Self.FK__Recipes__product__3F466844" FromRole="Products" ToRole="Recipes" />
+  </EntityType>
+  <EntityType Name="Recipes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" Nullable="false" />
+    <Property Name="material_id" Type="Int32" Nullable="false" />
+    <Property Name="quantity_per_unit" Type="Decimal" Precision="10" Scale="3" Nullable="false" />
+    <NavigationProperty Name="Materials" Relationship="Self.FK__Recipes__materia__403A8C7D" FromRole="Recipes" ToRole="Materials" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Recipes__product__3F466844" FromRole="Recipes" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="is_blocked" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK__Orders__customer__3C69FB99">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipes__materia__403A8C7D">
+    <End Role="Materials" Type="Self.Materials" Multiplicity="1" />
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Materials">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="material_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__order__4316F928">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__produ__440B1D61">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Recipes__product__3F466844">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Recipes" Type="Self.Recipes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Recipes">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DEMKAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customers" />
+    <EntitySet Name="Materials" EntityType="Self.Materials" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="Recipes" EntityType="Self.Recipes" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK__Orders__customer__3C69FB99" Association="Self.FK__Orders__customer__3C69FB99">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipes__materia__403A8C7D" Association="Self.FK__Recipes__materia__403A8C7D">
+      <End Role="Materials" EntitySet="Materials" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__order__4316F928" Association="Self.FK__OrderDeta__order__4316F928">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__produ__440B1D61" Association="Self.FK__OrderDeta__produ__440B1D61">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Recipes__product__3F466844" Association="Self.FK__Recipes__product__3F466844">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Recipes" EntitySet="Recipes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

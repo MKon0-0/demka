@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="47f2be3cf00e434e8ec5a29a3e210ccf" Name="Diagram1" ZoomLevel="96">
+        <EntityTypeShape EntityType="DEMKAModel.Customers" Width="1.5" PointX="1.5" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.Materials" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.OrderDetails" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.Orders" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.Products" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.Recipes" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DEMKAModel.Users" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="DEMKAModel.FK__Orders__customer__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMKAModel.FK__Recipes__materia__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMKAModel.FK__OrderDeta__order__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMKAModel.FK__OrderDeta__produ__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="DEMKAModel.FK__Recipes__product__3F466844" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

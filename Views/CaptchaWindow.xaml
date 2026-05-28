@@ -1,0 +1,75 @@
+﻿<Window x:Class="MolochnyKombinat.Views.CaptchaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Проверка - соберите пазл" Height="738" Width="650"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="348.713"/>
+            <RowDefinition Height="71.287"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="65"/>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Кликните на фрагменты в правильном порядке (1 → 2 → 3 → 4)" 
+                   FontSize="16" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,20,0,20" TextAlignment="Center" Width="498"/>
+
+        <!-- Область с фрагментами -->
+        <UniformGrid Name="PuzzleGrid" Rows="2" Columns="2" Width="400" 
+                     HorizontalAlignment="Center" Margin="0,61,0,20" Grid.RowSpan="3"/>
+
+        <!-- Отображение порядка кликов -->
+        <WrapPanel Grid.Row="3" HorizontalAlignment="Center" Margin="0,10,0,10" Width="90">
+            <TextBlock Text="Порядок: " FontSize="14" FontWeight="Bold" Margin="5"/>
+            <TextBlock Name="txtOrder" FontSize="14" Foreground="Blue" Margin="5"/>
+        </WrapPanel>
+
+        <!-- Статус -->
+        <TextBlock Grid.Row="4" Name="txtStatus" Text="" TextAlignment="Center" 
+                   Margin="0,10,0,33" FontSize="14" Foreground="Red"/>
+
+        <!-- Кнопки - в отдельной строке с фиксированной высотой -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" Height="60" Width="450">
+            <Button Name="btnReset" Content="Начать заново" Width="130" Height="40" Margin="10"
+                    Background="#FF9800" Foreground="White" 
+                    FontSize="14" FontWeight="Bold"
+                    Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Name="btnConfirm" Content="Подтвердить" Width="130" Height="40" Margin="10"
+                    Background="#4CAF50" Foreground="White" 
+                    FontSize="14" FontWeight="Bold"
+                    IsEnabled="False" Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Name="btnCancel" Content="Отмена" Width="130" Height="40" Margin="10"
+                    Background="#F44336" Foreground="White" 
+                    FontSize="14" FontWeight="Bold"
+                    Cursor="Hand">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

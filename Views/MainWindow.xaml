@@ -1,0 +1,57 @@
+﻿<Window x:Class="MolochnyKombinat.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Главное окно - Молочный комбинат Полесье" 
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с информацией о пользователе -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Name="txtUserInfo" FontSize="16"/>
+            <Button Name="btnLogout" Content="Выйти" Width="80" Margin="20,0,0,0"
+                    Click="btnLogout_Click"/>
+        </StackPanel>
+
+        <!-- Контент в зависимости от роли -->
+        <Grid Grid.Row="1">
+            <Grid Name="AdminPanel" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Панель администратора" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                <DataGrid Grid.Row="1" Name="dgUsers" AutoGenerateColumns="True" 
+                          SelectionMode="Single" Margin="0,0,0,10"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10">
+                    <Button Name="btnAddUser" Content="Добавить" Width="80" Margin="5"
+                            Click="btnAddUser_Click"/>
+                    <Button Name="btnEditUser" Content="Изменить" Width="80" Margin="5"
+                            Click="btnEditUser_Click"/>
+                    <Button Name="btnDeleteUser" Content="Удалить" Width="80" Margin="5"
+                            Click="btnDeleteUser_Click"/>
+                    <Button Name="btnUnblockUser" Content="Снять блокировку" Width="120" Margin="5"
+                            Click="btnUnblockUser_Click"/>
+                    <Button Name="btnValidation" Content="Валидация данных" Width="130" Margin="5"
+        Background="#9C27B0" Foreground="White" Click="btnValidation_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Name="UserPanel" Visibility="Visible">
+                <TextBlock Text="Добро пожаловать в систему учета заказов!" 
+                           FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           TextWrapping="Wrap" TextAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
